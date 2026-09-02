@@ -1,7 +1,7 @@
 import { cn } from '../../utils/cn'
 
 const TONES = {
-  brand: 'bg-brand-soft text-brand',
+  brand: 'bg-brand-soft text-brand-ink',
   info: 'bg-info-soft text-info',
   caution: 'bg-caution-soft text-caution',
   positive: 'bg-positive-soft text-positive',

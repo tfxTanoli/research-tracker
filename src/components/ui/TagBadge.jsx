@@ -6,7 +6,7 @@ export function TagBadge({ tag, onRemove, onClick, active, size = 'md', classNam
     'inline-flex max-w-full items-center gap-1 rounded-md border font-medium whitespace-nowrap transition-colors',
     size === 'sm' ? 'px-1.5 py-[2px] text-[11px]' : 'px-2 py-[3px] text-[11.5px]',
     active
-      ? 'border-brand-line bg-brand-soft text-brand'
+      ? 'border-brand-line bg-brand-soft text-brand-ink'
       : 'border-line bg-surface-muted text-ink-soft',
     className,
   )

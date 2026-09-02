@@ -24,6 +24,7 @@ canvas, white cards, soft borders, restrained colour, strong typographic hierarc
 
 - Full CRUD over research entries, entirely on the frontend
 - Search, filtering, sorting, two layouts, dashboard, tags, settings
+- Light and dark themes, switchable from the header or set to follow the system
 - `localStorage` persistence, seeded with sample data
 - Responsive design from 320px through desktop
 - Accessibility: semantics, labels, focus management, ARIA, reduced motion
@@ -56,18 +57,23 @@ utilities automatically (`--color-brand` → `bg-brand`, `text-brand`, …).
 Tokens live in `src/index.css`:
 
 - **Surfaces** — `canvas` (page), `surface` (cards), `surface-muted`,
-  `surface-sunken`
+  `surface-sunken`, plus `canvas-veil` / `surface-veil` for translucent layers
 - **Lines** — `line`, `line-soft`, `line-strong`
 - **Text** — `ink`, `ink-soft`, `ink-faint`
-- **Brand** — indigo `brand`, `brand-hover`, `brand-soft`, `brand-line`
+- **Brand** — indigo `brand` (fill), `brand-hover`, `brand-ink` (text on pale
+  backgrounds), `brand-ink-hover`, `brand-soft`, `brand-line`, `brand-muted`
 - **Semantic** — `positive`, `caution`, `danger`, `info`, each with a `-soft` pair
+- **Accent families** — `accent-{neutral,muted,info,violet,positive,caution,danger}`,
+  each a text tone, a `-soft` fill, a `-line` hairline and a `-dot`; this is the
+  tinted badge palette every categorical label draws from
 - **Elevation** — `shadow-card`, `shadow-raised`, `shadow-pop`, `shadow-overlay`
 - **Motion** — six short keyframes (`animate-dialog-in`, `animate-sheet-in`,
   `animate-toast-in`, …), all suppressed under `prefers-reduced-motion`
 
 Status and priority colours are **not** ad-hoc per component. They are declared once
-in `src/utils/constants.js` alongside each value, so a status renders identically in
-a card, a table row, a filter chip and the dashboard breakdown.
+in `src/utils/constants.js` alongside each value — as accent-family token names, not
+literal colours — so a status renders identically in a card, a table row, a filter
+chip and the dashboard breakdown, in either theme.
 
 Priority is deliberately quiet — a small coloured dot plus a neutral label — so the
 library does not become a wall of colour. Only filter chips use the tinted variant.
@@ -76,7 +82,7 @@ library does not become a wall of colour. Only filter chips use the tinted varia
 
 ```
 main.jsx
-└── App.jsx                    providers only (ToastProvider)
+└── App.jsx                    providers only (ThemeProvider, ToastProvider)
     └── ResearchWorkspace.jsx  all application state + page selection
         └── layouts/AppLayout  sidebar · mobile drawer · header · main
             └── pages/*        Dashboard · ResearchLibrary · TagsPage · SettingsPage
@@ -90,6 +96,7 @@ directly.
   (`addEntry`, `updateEntry`, `deleteEntry`, `restoreEntry`, `toggleFavorite`,
   `resetToSample`, `clearAll`), mirrored to storage by a single effect
 - `hooks/usePreferences.js` — persisted layout and sort defaults
+- `hooks/useTheme.jsx` — the light/dark/system choice, resolved and applied
 - `hooks/useToast.jsx` — toast context and provider
 - `utils/research.js` — pure `queryResearch`, `getStats`, `getTagUsage`,
   `buildEntry`; all searching, filtering, sorting and summarising lives here and is
@@ -120,6 +127,25 @@ clipped by that scroll container. `ui/Dropdown.jsx` measures its trigger, portal
 **Delete is reversible.** The confirmation dialog is the guard, and the toast that
 follows offers Undo for seven seconds via `restoreEntry` — safer than a confirm
 step alone, without adding a trash-bin concept.
+
+**One dark palette, not two media queries.** The theme resolves to a concrete
+value in JS and lands on `<html data-theme="light|dark">`; the CSS has a single
+`:root[data-theme='dark']` block that redefines the same token names. "Match
+system" is resolved by `useTheme`, not by a second `prefers-color-scheme` copy of
+the palette, so there is exactly one place a dark colour is written down. A boot
+script in `index.html` sets the attribute before first paint, so there is no flash
+of the wrong theme on load.
+
+**Opacity modifiers are banned on themed colours.** Tailwind 4 inlines the literal
+colour when a token is written as `bg-canvas/85`, which would leave a white header
+floating over the dark theme. Anything translucent gets its own full-alpha token
+(`canvas-veil`, `surface-veil`, `scrim`, `ring-brand`, `brand-muted`, `brand-bar`)
+so it flips with everything else.
+
+**Brand splits into a fill and an ink tone.** `brand` always sits under white text
+so it has to stay dark; `brand-ink` is the same colour used *as* text on a pale or
+soft background, which on a dark canvas has to travel the other way. In light they
+are identical, which is why one token was enough until now.
 
 **Layout preference is a preference, not session state.** Toggling grid/table in the
 library writes straight to `usePreferences`, which is what Settings displays and
@@ -155,6 +181,7 @@ stamps `updatedAt`.
 | -------------------------------- | ---------------------------- |
 | `research-tracker:entries:v1`    | The research collection      |
 | `research-tracker:preferences:v1`| Default layout and sort      |
+| `research-tracker:theme:v1`      | `light`, `dark` or `system`  |
 
 Seeding happens only when no saved collection exists. Every read is wrapped in
 `try/catch` so private-mode browsers and corrupted values degrade to defaults rather
@@ -184,6 +211,8 @@ Complete and verified:
 - ✅ Dashboard, tags and settings screens
 - ✅ Twelve sample entries, localStorage persistence, JSON export
 - ✅ Mobile drawer, filter panel, responsive dialogs
+- ✅ Light and dark themes across every screen, dialog, menu and badge, with a
+  header toggle, a three-way setting in Settings, and no flash on load
 - ✅ `npm run build` succeeds; `npm run lint` reports no errors
 - ✅ Query logic covered by assertions (search, filters, scopes, sorts, stats,
   entry construction); app verified to render without runtime errors
@@ -195,6 +224,5 @@ Not built, deliberately — each would be a scope increase:
 - Deep links and shareable filtered URLs (needs a router)
 - A read-only detail view for long notes, separate from the edit form
 - Bulk selection and bulk status changes
-- Dark theme (tokens are already centralised, so this is mostly palette work)
 - JSON import to complement export
 - A real backend, which would replace `hooks/useResearch.js` only

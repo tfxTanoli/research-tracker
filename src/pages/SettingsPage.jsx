@@ -5,6 +5,7 @@ import { Button } from '../components/ui/Button'
 import { Select } from '../components/ui/Select'
 import { ConfirmDialog } from '../components/ui/ConfirmDialog'
 import { WorkspaceProfile } from '../components/layout/WorkspaceProfile'
+import { useTheme, THEME_OPTIONS } from '../hooks/useTheme'
 import { SORT_OPTIONS } from '../utils/constants'
 import { STORAGE_KEYS } from '../utils/storage'
 import { pluralize } from '../utils/format'
@@ -28,6 +29,7 @@ function SettingRow({ title, description, children }) {
 
 export function SettingsPage({ entries, preferences, onPreferenceChange, onReset, onClearAll, onExport }) {
   const [confirm, setConfirm] = useState(null)
+  const { theme, resolvedTheme, setTheme } = useTheme()
 
   return (
     <div className="flex max-w-3xl flex-col gap-4">
@@ -36,6 +38,24 @@ export function SettingsPage({ entries, preferences, onPreferenceChange, onReset
         <p className="mt-3 text-[12.5px] leading-relaxed text-ink-faint">
           Everything you save stays on this device, in this browser. Nothing is sent anywhere.
         </p>
+      </Panel>
+
+      <Panel title="Appearance" description="Applied straight away and remembered on this device.">
+        <SettingRow
+          title="Theme"
+          description={
+            theme === 'system'
+              ? `Following your system setting — currently ${resolvedTheme}.`
+              : 'Light or dark, regardless of what your system is set to.'
+          }
+        >
+          <Select
+            id="pref-theme"
+            value={theme}
+            onChange={(event) => setTheme(event.target.value)}
+            options={THEME_OPTIONS}
+          />
+        </SettingRow>
       </Panel>
 
       <Panel title="Preferences" description="Applied the next time the library opens.">

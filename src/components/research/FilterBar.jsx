@@ -50,7 +50,7 @@ function FilterMenu({ label, values, selected, onToggle }) {
           size="md"
           aria-expanded={open}
           aria-haspopup="menu"
-          className={cn(count > 0 && 'border-brand-line bg-brand-soft text-brand')}
+          className={cn(count > 0 && 'border-brand-line bg-brand-soft text-brand-ink')}
         >
           {label}
           {count > 0 && (
@@ -100,7 +100,7 @@ function MobileFilterGroup({ label, values, selected, onToggle }) {
               className={cn(
                 'rounded-lg border px-2.5 py-1.5 text-[12.5px] font-medium transition-colors',
                 isActive
-                  ? 'border-brand-line bg-brand-soft text-brand'
+                  ? 'border-brand-line bg-brand-soft text-brand-ink'
                   : 'border-line bg-surface text-ink-soft',
               )}
             >
@@ -165,7 +165,7 @@ export function FilterBar({
           aria-controls="mobile-filter-panel"
           className={cn(
             'sm:hidden',
-            activeCount > 0 && 'border-brand-line bg-brand-soft text-brand',
+            activeCount > 0 && 'border-brand-line bg-brand-soft text-brand-ink',
           )}
         >
           <SlidersHorizontal className="h-4 w-4" aria-hidden="true" />
@@ -256,7 +256,7 @@ export function FilterBar({
             <button
               type="button"
               onClick={onClearFilters}
-              className="rounded-md text-[12.5px] font-semibold text-brand transition-colors hover:text-brand-hover"
+              className="rounded-md text-[12.5px] font-semibold text-brand-ink transition-colors hover:text-brand-ink-hover"
             >
               Clear filters
             </button>

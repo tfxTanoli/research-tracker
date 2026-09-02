@@ -54,7 +54,7 @@ export function ResearchTable({ entries, onEdit, onDelete, onToggleFavorite }) {
                   <td className="px-4 py-3">
                     <div className="flex items-start gap-2">
                       {entry.favorite && (
-                        <span className="mt-[3px] shrink-0 text-[#e0a51e]">
+                        <span className="mt-[3px] shrink-0 text-star">
                           <Star className="h-3.5 w-3.5" fill="currentColor" aria-hidden="true" />
                           <span className="sr-only">Favorite</span>
                         </span>
@@ -63,7 +63,7 @@ export function ResearchTable({ entries, onEdit, onDelete, onToggleFavorite }) {
                         <button
                           type="button"
                           onClick={() => onEdit(entry)}
-                          className="block max-w-full truncate text-left text-[13.5px] font-semibold text-ink transition-colors hover:text-brand"
+                          className="block max-w-full truncate text-left text-[13.5px] font-semibold text-ink transition-colors hover:text-brand-ink"
                         >
                           {entry.title}
                         </button>
@@ -103,7 +103,7 @@ export function ResearchTable({ entries, onEdit, onDelete, onToggleFavorite }) {
                         href={entry.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex max-w-[160px] items-center gap-1 rounded-md text-[12.5px] font-medium text-ink-soft transition-colors hover:text-brand"
+                        className="inline-flex max-w-[160px] items-center gap-1 rounded-md text-[12.5px] font-medium text-ink-soft transition-colors hover:text-brand-ink"
                         title={entry.url}
                       >
                         <ExternalLink className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
@@ -130,7 +130,7 @@ export function ResearchTable({ entries, onEdit, onDelete, onToggleFavorite }) {
                         className={cn(
                           'hidden rounded-lg p-1.5 transition-all duration-150 hover:bg-surface-sunken sm:block',
                           entry.favorite
-                            ? 'text-[#e0a51e]'
+                            ? 'text-star'
                             : 'text-ink-faint opacity-0 group-hover:opacity-100 focus-visible:opacity-100',
                         )}
                       >

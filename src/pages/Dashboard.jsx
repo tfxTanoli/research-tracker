@@ -19,7 +19,7 @@ function EntryRow({ entry, onEdit }) {
         className="group flex w-full items-center gap-3 rounded-lg px-2 py-2.5 text-left transition-colors hover:bg-surface-muted"
       >
         <div className="min-w-0 flex-1">
-          <p className="truncate text-[13.5px] font-semibold text-ink transition-colors group-hover:text-brand">
+          <p className="truncate text-[13.5px] font-semibold text-ink transition-colors group-hover:text-brand-ink">
             {entry.title}
           </p>
           <div className="mt-1 flex items-center gap-2.5">

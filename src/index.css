@@ -2,6 +2,12 @@
 
 /* ------------------------------------------------------------------
    Design tokens — a calm, neutral productivity surface.
+
+   Every colour in the app resolves through one of these variables, so a
+   theme is a palette swap and nothing else. The values declared here are
+   the light theme; the `:root[data-theme='dark']` block further down
+   redefines the same names for dark. No component needs to know which
+   theme is active.
    ------------------------------------------------------------------ */
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
@@ -23,11 +29,20 @@
   --color-ink-soft: #4a4f59;
   --color-ink-faint: #828895;
 
-  /* Brand */
+  /* Brand.
+     `brand` is the *fill* — it always sits under white text, so it has to stay
+     dark enough for that. `brand-ink` is the same colour used as *text or an
+     icon* on a pale or soft background, which on a dark canvas has to travel in
+     the opposite direction. In light they are the same value; in dark they part
+     company, which is the whole reason the two names exist. */
   --color-brand: #4f46e5;
   --color-brand-hover: #4338ca;
   --color-brand-soft: #eef1fe;
   --color-brand-line: #d9dcfb;
+  --color-brand-ink: #4f46e5;
+  --color-brand-ink-hover: #4338ca;
+  --color-brand-muted: rgba(79, 70, 229, 0.5);
+  --color-brand-bar: rgba(79, 70, 229, 0.7);
 
   /* Semantic accents */
   --color-positive: #0f7a55;
@@ -35,15 +50,183 @@
   --color-caution: #a4600b;
   --color-caution-soft: #fdf3e5;
   --color-danger: #b42318;
+  --color-danger-hover: #9a1d13;
   --color-danger-soft: #fdeceb;
+  --color-danger-line: #f0c9c5;
   --color-info: #1d5fd0;
   --color-info-soft: #eaf1fe;
+
+  /* Accent families — the tinted label palette shared by statuses,
+     priorities and any other categorical badge. Each family is a text
+     tone, a soft fill, a hairline and a dot. */
+  --color-accent-neutral: #4a4f59;
+  --color-accent-neutral-soft: #f1f2f5;
+  --color-accent-neutral-line: #e1e3ea;
+  --color-accent-neutral-dot: #8b909d;
+
+  --color-accent-muted: #828895;
+  --color-accent-muted-soft: #fafbfc;
+  --color-accent-muted-line: #e8eaef;
+  --color-accent-muted-dot: #a9aeb9;
+
+  --color-accent-info: #1d5fd0;
+  --color-accent-info-soft: #eaf1fe;
+  --color-accent-info-line: #d2e0fb;
+  --color-accent-info-dot: #3b7ae4;
+
+  --color-accent-violet: #6d28d9;
+  --color-accent-violet-soft: #f3eefe;
+  --color-accent-violet-line: #e2d7fb;
+  --color-accent-violet-dot: #8b5cf6;
+
+  --color-accent-positive: #0f7a55;
+  --color-accent-positive-soft: #e8f6f0;
+  --color-accent-positive-line: #c9e8db;
+  --color-accent-positive-dot: #12996b;
+
+  --color-accent-caution: #a4600b;
+  --color-accent-caution-soft: #fdf3e5;
+  --color-accent-caution-line: #f2ddbe;
+  --color-accent-caution-dot: #d99a2b;
+
+  --color-accent-danger: #b42318;
+  --color-accent-danger-soft: #fdeceb;
+  --color-accent-danger-line: #f7d4d1;
+  --color-accent-danger-dot: #d92d20;
+
+  /* Translucent surfaces and focus rings.
+     These carry their own alpha rather than using an opacity modifier
+     (`bg-canvas/85`), because a modifier makes Tailwind inline the literal
+     colour — which would leave a white header floating over the dark theme. */
+  --color-canvas-veil: rgba(246, 247, 249, 0.85);
+  --color-surface-veil: rgba(255, 255, 255, 0.7);
+  --color-ring-brand: rgba(79, 70, 229, 0.12);
+  --color-ring-danger: rgba(180, 35, 24, 0.12);
+
+  /* Odds and ends that still have to flip with the theme */
+  --color-star: #e0a51e;
+  /* Carries its own alpha: an opacity modifier (`bg-scrim/45`) makes Tailwind
+     inline the literal colour, which would strand the overlay in one theme. */
+  --color-scrim: rgba(20, 22, 27, 0.45);
+  --color-field-invalid: #e9b4ae;
 
   /* Elevation */
   --shadow-card: 0 1px 2px rgba(20, 22, 27, 0.04), 0 1px 3px rgba(20, 22, 27, 0.03);
   --shadow-raised: 0 2px 4px rgba(20, 22, 27, 0.04), 0 8px 20px -6px rgba(20, 22, 27, 0.10);
   --shadow-pop: 0 8px 28px -8px rgba(20, 22, 27, 0.18), 0 2px 8px rgba(20, 22, 27, 0.06);
   --shadow-overlay: 0 24px 60px -20px rgba(20, 22, 27, 0.35);
+}
+
+/* ------------------------------------------------------------------
+   Dark theme.
+
+   `data-theme` is written to <html> by the boot script in index.html and
+   kept in sync by hooks/useTheme.jsx, which resolves the "System" choice
+   down to a concrete value. One palette block covers all three settings,
+   and the attribute is set before first paint so there is no flash.
+
+   These rules are deliberately unlayered so they win over the `:root`
+   declarations Tailwind emits inside its own `theme` layer.
+   ------------------------------------------------------------------ */
+:root {
+  color-scheme: light;
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+
+  /* Surfaces — near-black canvas, cards lifted one step above it. */
+  --color-canvas: #0e0f13;
+  --color-surface: #16181d;
+  --color-surface-muted: #1b1e24;
+  --color-surface-sunken: #23262e;
+
+  /* Lines */
+  --color-line: #2b2f38;
+  --color-line-soft: #23262e;
+  --color-line-strong: #3b414d;
+
+  /* Text */
+  --color-ink: #eceef2;
+  --color-ink-soft: #adb4c0;
+  --color-ink-faint: #7d8695;
+
+  /* Brand — the fill stays deep enough for white button labels, while the ink
+     tone lifts well clear of the dark surfaces it is read against. */
+  --color-brand: #5f56ea;
+  --color-brand-hover: #6d64f0;
+  --color-brand-soft: #211f43;
+  --color-brand-line: #383572;
+  --color-brand-ink: #a49df9;
+  --color-brand-ink-hover: #bcb6fb;
+  --color-brand-muted: rgba(95, 86, 234, 0.55);
+  --color-brand-bar: rgba(139, 131, 246, 0.75);
+
+  /* Semantic accents */
+  --color-positive: #4ecf9e;
+  --color-positive-soft: #0f2a22;
+  --color-caution: #edb95f;
+  --color-caution-soft: #2e2313;
+  --color-danger: #f2867b;
+  --color-danger-hover: #d9695e;
+  --color-danger-soft: #331c1a;
+  --color-danger-line: #55302c;
+  --color-info: #85b0f8;
+  --color-info-soft: #16233d;
+
+  /* Accent families */
+  --color-accent-neutral: #b6bdc9;
+  --color-accent-neutral-soft: #262a33;
+  --color-accent-neutral-line: #343a47;
+  --color-accent-neutral-dot: #8990a0;
+
+  --color-accent-muted: #8b93a2;
+  --color-accent-muted-soft: #1d2027;
+  --color-accent-muted-line: #2c313b;
+  --color-accent-muted-dot: #6b7383;
+
+  --color-accent-info: #85b0f8;
+  --color-accent-info-soft: #16233d;
+  --color-accent-info-line: #27395c;
+  --color-accent-info-dot: #5b8fe8;
+
+  --color-accent-violet: #b49bf7;
+  --color-accent-violet-soft: #241d3f;
+  --color-accent-violet-line: #3a2f63;
+  --color-accent-violet-dot: #9b7cf8;
+
+  --color-accent-positive: #55d3a1;
+  --color-accent-positive-soft: #0f2a22;
+  --color-accent-positive-line: #1d4536;
+  --color-accent-positive-dot: #22b57f;
+
+  --color-accent-caution: #edb95f;
+  --color-accent-caution-soft: #2e2313;
+  --color-accent-caution-line: #4a3a1c;
+  --color-accent-caution-dot: #d99a2b;
+
+  --color-accent-danger: #f5867b;
+  --color-accent-danger-soft: #331c1a;
+  --color-accent-danger-line: #55302c;
+  --color-accent-danger-dot: #e05548;
+
+  --color-canvas-veil: rgba(14, 15, 19, 0.85);
+  --color-surface-veil: rgba(34, 37, 45, 0.7);
+  --color-ring-brand: rgba(140, 132, 250, 0.22);
+  --color-ring-danger: rgba(242, 134, 123, 0.22);
+
+  --color-star: #f0b93c;
+  --color-scrim: rgba(4, 5, 10, 0.62);
+  --color-field-invalid: #7a4039;
+
+  /* Elevation — shadows read faintly on a dark canvas, so they lean on a
+     deeper black and the borders do more of the separating. */
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.40), 0 1px 3px rgba(0, 0, 0, 0.30);
+  --shadow-raised: 0 2px 4px rgba(0, 0, 0, 0.40), 0 8px 20px -6px rgba(0, 0, 0, 0.55);
+  --shadow-pop: 0 8px 28px -8px rgba(0, 0, 0, 0.70), 0 2px 8px rgba(0, 0, 0, 0.45);
+  --shadow-overlay: 0 24px 60px -20px rgba(0, 0, 0, 0.85);
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.35);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.40), 0 1px 2px -1px rgba(0, 0, 0, 0.40);
 }
 
 @layer base {
@@ -53,6 +236,7 @@
 
   html {
     -webkit-text-size-adjust: 100%;
+    background-color: var(--color-canvas);
   }
 
   body {
@@ -69,7 +253,7 @@
 
   /* Keyboard focus only — never a ring on mouse clicks. */
   :focus-visible {
-    outline: 2px solid var(--color-brand);
+    outline: 2px solid var(--color-brand-ink);
     outline-offset: 2px;
     border-radius: 6px;
   }
@@ -80,6 +264,13 @@
   textarea {
     font: inherit;
     color: inherit;
+  }
+
+  /* The native dropdown list is painted by the platform, so it needs the
+     theme surface spelled out or it renders light-on-light in dark mode. */
+  select option {
+    background-color: var(--color-surface);
+    color: var(--color-ink);
   }
 
   ::placeholder {

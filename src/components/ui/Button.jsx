@@ -3,14 +3,14 @@ import { cn } from '../../utils/cn'
 
 const VARIANTS = {
   primary:
-    'bg-brand text-white shadow-sm hover:bg-brand-hover active:bg-brand-hover disabled:bg-brand/50',
+    'bg-brand text-white shadow-sm hover:bg-brand-hover active:bg-brand-hover disabled:bg-brand-muted',
   secondary:
     'bg-surface text-ink border border-line shadow-xs hover:bg-surface-muted hover:border-line-strong',
   ghost: 'text-ink-soft hover:bg-surface-sunken hover:text-ink',
   subtle: 'bg-surface-sunken text-ink-soft hover:bg-line hover:text-ink',
-  danger: 'bg-danger text-white shadow-sm hover:bg-[#9a1d13]',
+  danger: 'bg-danger text-white shadow-sm hover:bg-danger-hover',
   'danger-outline':
-    'bg-surface text-danger border border-[#f0c9c5] hover:bg-danger-soft hover:border-[#e5aca6]',
+    'bg-surface text-danger border border-danger-line hover:bg-danger-soft hover:border-danger',
 }
 
 const SIZES = {

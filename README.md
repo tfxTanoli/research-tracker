@@ -48,7 +48,10 @@ Navigation is state-driven rather than URL-driven, so no SPA rewrite rule or
 - **Dashboard** — statistics, recently updated, an attention queue, status
   breakdown and top tags
 - **Tags** — browse the library by theme
-- **Settings** — default layout and sort, JSON export, restore samples, clear data
+- **Theme** — light and dark, toggled from the header or set to follow the system
+  in Settings; remembered per device and applied before first paint
+- **Settings** — theme, default layout and sort, JSON export, restore samples,
+  clear data
 - **Responsive** — designed at 320, 375, 430, 768, 1024 and 1440px+
 - **Accessible** — semantic markup, labelled controls, visible focus, ARIA on
   dialogs and menus, focus trapping, `prefers-reduced-motion` support
@@ -62,7 +65,7 @@ src/
 │  ├─ research/    Cards, table, filters, forms, modals, stats, search
 │  └─ ui/          Button, Input, TextArea, Select, Modal, Dropdown, badges, Toast
 ├─ data/           Sample research entries, navigation definitions
-├─ hooks/          useResearch, usePreferences, useToast, useClickOutside
+├─ hooks/          useResearch, usePreferences, useTheme, useToast, useClickOutside
 ├─ layouts/        AppLayout
 ├─ pages/          Dashboard, ResearchLibrary, TagsPage, SettingsPage
 ├─ utils/          constants, research (query/sort/stats), format, storage, cn

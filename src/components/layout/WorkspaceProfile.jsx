@@ -12,7 +12,7 @@ export function WorkspaceProfile({ className }) {
         className,
       )}
     >
-      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-soft text-[12px] font-bold text-brand">
+      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-soft text-[12px] font-bold text-brand-ink">
         {initials}
       </span>
       <div className="min-w-0 flex-1">

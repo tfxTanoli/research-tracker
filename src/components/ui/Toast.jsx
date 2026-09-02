@@ -31,7 +31,7 @@ function Toast({ toast, onDismiss }) {
               toast.action.onClick()
               onDismiss(toast.id)
             }}
-            className="mt-2 rounded-md text-[13px] font-semibold text-brand transition-colors hover:text-brand-hover"
+            className="mt-2 rounded-md text-[13px] font-semibold text-brand-ink transition-colors hover:text-brand-ink-hover"
           >
             {toast.action.label}
           </button>

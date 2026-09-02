@@ -55,10 +55,10 @@ export function TagsPage({ tagUsage, entries, search, onSelectTag }) {
                   className="group flex h-full w-full flex-col rounded-xl border border-line bg-surface p-3.5 text-left transition-all duration-200 hover:border-line-strong hover:shadow-raised"
                 >
                   <div className="flex items-center gap-2">
-                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-brand-soft text-brand">
+                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-brand-soft text-brand-ink">
                       <Hash className="h-3.5 w-3.5" aria-hidden="true" />
                     </span>
-                    <span className="min-w-0 flex-1 truncate text-[13.5px] font-semibold text-ink transition-colors group-hover:text-brand">
+                    <span className="min-w-0 flex-1 truncate text-[13.5px] font-semibold text-ink transition-colors group-hover:text-brand-ink">
                       {tag}
                     </span>
                     <ArrowUpRight
@@ -74,7 +74,7 @@ export function TagsPage({ tagUsage, entries, search, onSelectTag }) {
 
                   <div className="mt-1.5 h-1.5 w-full overflow-hidden rounded-full bg-surface-sunken">
                     <div
-                      className="h-full rounded-full bg-brand/70 transition-all duration-500"
+                      className="h-full rounded-full bg-brand-bar transition-all duration-500"
                       style={{ width: `${share}%` }}
                     />
                   </div>

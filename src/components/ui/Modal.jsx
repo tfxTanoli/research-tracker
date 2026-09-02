@@ -88,7 +88,7 @@ export function Modal({
         aria-label="Close dialog"
         tabIndex={-1}
         onClick={onClose}
-        className="animate-overlay-in absolute inset-0 cursor-default bg-ink/35 backdrop-blur-[2px]"
+        className="animate-overlay-in absolute inset-0 cursor-default bg-scrim backdrop-blur-[2px]"
       />
 
       <div

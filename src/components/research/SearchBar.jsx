@@ -23,7 +23,7 @@ export function SearchBar({ value, onChange, placeholder = 'Search research…',
         className={cn(
           'h-10 w-full rounded-lg border border-line bg-surface pr-9 pl-9 text-[13.5px] text-ink shadow-xs',
           'transition-all duration-150 placeholder:text-ink-faint',
-          'hover:border-line-strong focus:border-brand focus:ring-3 focus:ring-brand/12 focus:outline-none',
+          'hover:border-line-strong focus:border-brand focus:ring-3 focus:ring-ring-brand focus:outline-none',
           '[&::-webkit-search-cancel-button]:appearance-none',
         )}
       />

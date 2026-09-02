@@ -36,7 +36,7 @@ export function MobileNavigation({ open, onClose, activeView, onNavigate, counts
         aria-label="Close navigation"
         tabIndex={-1}
         onClick={onClose}
-        className="animate-overlay-in absolute inset-0 cursor-default bg-ink/40 backdrop-blur-[2px]"
+        className="animate-overlay-in absolute inset-0 cursor-default bg-scrim backdrop-blur-[2px]"
       />
 
       <div

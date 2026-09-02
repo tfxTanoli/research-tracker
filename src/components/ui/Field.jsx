@@ -35,6 +35,6 @@ export const controlClasses = (invalid) =>
     'w-full rounded-lg border bg-surface px-3 text-[14px] text-ink shadow-xs transition-all duration-150',
     'placeholder:text-ink-faint focus:outline-none',
     invalid
-      ? 'border-[#e9b4ae] focus:border-danger focus:ring-3 focus:ring-danger/12'
-      : 'border-line hover:border-line-strong focus:border-brand focus:ring-3 focus:ring-brand/12',
+      ? 'border-field-invalid focus:border-danger focus:ring-3 focus:ring-ring-danger'
+      : 'border-line hover:border-line-strong focus:border-brand focus:ring-3 focus:ring-ring-brand',
   )

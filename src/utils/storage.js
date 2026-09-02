@@ -7,6 +7,7 @@
 export const STORAGE_KEYS = {
   research: 'research-tracker:entries:v1',
   preferences: 'research-tracker:preferences:v1',
+  theme: 'research-tracker:theme:v1',
 }
 
 export function readStorage(key, fallback) {

@@ -16,6 +16,27 @@
       rel="stylesheet"
     />
     <title>Research Tracker</title>
+    <script>
+      // Resolve the saved theme before first paint so the page never flashes
+      // the wrong palette. src/hooks/useTheme.jsx owns it from here on.
+      (function () {
+        try {
+          var stored = JSON.parse(localStorage.getItem('research-tracker:theme:v1'));
+          var resolved =
+            stored === 'dark' || stored === 'light'
+              ? stored
+              : window.matchMedia('(prefers-color-scheme: dark)').matches
+                ? 'dark'
+                : 'light';
+          document.documentElement.dataset.theme = resolved;
+          document
+            .querySelector('meta[name="theme-color"]')
+            .setAttribute('content', resolved === 'dark' ? '#0e0f13' : '#f6f7f9');
+        } catch (error) {
+          document.documentElement.dataset.theme = 'light';
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

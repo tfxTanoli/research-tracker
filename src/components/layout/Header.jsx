@@ -1,5 +1,6 @@
 import { Menu, Plus } from 'lucide-react'
 import { Button } from '../ui/Button'
+import { ThemeToggle } from '../ui/ThemeToggle'
 import { SearchBar } from '../research/SearchBar'
 
 /**
@@ -16,7 +17,7 @@ export function Header({
   showSearch = true,
 }) {
   return (
-    <header className="sticky top-0 z-30 border-b border-line bg-canvas/85 backdrop-blur-md">
+    <header className="sticky top-0 z-30 border-b border-line bg-canvas-veil backdrop-blur-md">
       <div className="mx-auto w-full max-w-[1440px] px-4 sm:px-6 lg:px-8">
         <div className="flex min-h-16 items-center gap-3 py-3">
           <button
@@ -42,6 +43,8 @@ export function Header({
               className="hidden w-56 lg:block xl:w-72"
             />
           )}
+
+          <ThemeToggle />
 
           <Button
             variant="primary"

@@ -110,7 +110,7 @@ export function DropdownItem({ icon: Icon, children, selected, tone = 'default',
         tone === 'danger'
           ? 'text-danger hover:bg-danger-soft'
           : 'text-ink-soft hover:bg-surface-sunken hover:text-ink',
-        selected && tone !== 'danger' && 'bg-brand-soft text-brand hover:bg-brand-soft',
+        selected && tone !== 'danger' && 'bg-brand-soft text-brand-ink hover:bg-brand-soft',
       )}
       {...props}
     >

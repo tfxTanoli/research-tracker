@@ -27,7 +27,7 @@ export function ResearchCard({ entry, onEdit, onDelete, onToggleFavorite, onSele
             className={cn(
               'rounded-lg p-2 transition-all duration-150 hover:bg-surface-sunken sm:p-1.5',
               entry.favorite
-                ? 'text-[#e0a51e]'
+                ? 'text-star'
                 : 'text-ink-faint opacity-0 group-hover:opacity-100 focus-visible:opacity-100 max-sm:opacity-100',
             )}
           >
@@ -80,7 +80,7 @@ export function ResearchCard({ entry, onEdit, onDelete, onToggleFavorite, onSele
         <button
           type="button"
           onClick={() => onEdit(entry)}
-          className="line-clamp-2-safe text-left text-[14.5px] leading-snug font-semibold tracking-tight text-ink transition-colors hover:text-brand"
+          className="line-clamp-2-safe text-left text-[14.5px] leading-snug font-semibold tracking-tight text-ink transition-colors hover:text-brand-ink"
         >
           {entry.title}
         </button>
@@ -118,7 +118,7 @@ export function ResearchCard({ entry, onEdit, onDelete, onToggleFavorite, onSele
             href={entry.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="ml-auto inline-flex max-w-[45%] items-center gap-1 truncate rounded-md font-medium text-ink-faint transition-colors hover:text-brand"
+            className="ml-auto inline-flex max-w-[45%] items-center gap-1 truncate rounded-md font-medium text-ink-faint transition-colors hover:text-brand-ink"
             title={entry.url}
           >
             <ExternalLink className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />

@@ -1,44 +1,46 @@
 /**
  * Shared vocabulary for the app: statuses, priorities, tags and sort options.
- * Badge classes live here so every surface renders a status the exact same way.
+ * Badge classes live here so every surface renders a status the exact same way,
+ * and they name accent-family tokens rather than literal colours so both
+ * themes are covered by the palette in index.css.
  */
 
 export const STATUSES = [
   {
     value: 'Idea',
     label: 'Idea',
-    badge: 'bg-[#fdf3e5] text-[#a4600b] border-[#f2ddbe]',
-    dot: 'bg-[#d99a2b]',
+    badge: 'bg-accent-caution-soft text-accent-caution border-accent-caution-line',
+    dot: 'bg-accent-caution-dot',
   },
   {
     value: 'To Research',
     label: 'To Research',
-    badge: 'bg-[#f1f2f5] text-[#4a4f59] border-[#e1e3ea]',
-    dot: 'bg-[#8b909d]',
+    badge: 'bg-accent-neutral-soft text-accent-neutral border-accent-neutral-line',
+    dot: 'bg-accent-neutral-dot',
   },
   {
     value: 'In Progress',
     label: 'In Progress',
-    badge: 'bg-[#eaf1fe] text-[#1d5fd0] border-[#d2e0fb]',
-    dot: 'bg-[#3b7ae4]',
+    badge: 'bg-accent-info-soft text-accent-info border-accent-info-line',
+    dot: 'bg-accent-info-dot',
   },
   {
     value: 'Reviewing',
     label: 'Reviewing',
-    badge: 'bg-[#f3eefe] text-[#6d28d9] border-[#e2d7fb]',
-    dot: 'bg-[#8b5cf6]',
+    badge: 'bg-accent-violet-soft text-accent-violet border-accent-violet-line',
+    dot: 'bg-accent-violet-dot',
   },
   {
     value: 'Completed',
     label: 'Completed',
-    badge: 'bg-[#e8f6f0] text-[#0f7a55] border-[#c9e8db]',
-    dot: 'bg-[#12996b]',
+    badge: 'bg-accent-positive-soft text-accent-positive border-accent-positive-line',
+    dot: 'bg-accent-positive-dot',
   },
   {
     value: 'Archived',
     label: 'Archived',
-    badge: 'bg-[#fafbfc] text-[#828895] border-[#e8eaef]',
-    dot: 'bg-[#b3b8c2]',
+    badge: 'bg-accent-muted-soft text-accent-muted border-accent-muted-line',
+    dot: 'bg-accent-muted-dot',
   },
 ]
 
@@ -46,33 +48,33 @@ export const PRIORITIES = [
   {
     value: 'Low',
     label: 'Low',
-    dot: 'bg-[#a9aeb9]',
+    dot: 'bg-accent-muted-dot',
     text: 'text-ink-faint',
-    chip: 'bg-[#f4f5f7] text-[#5c626d] border-[#e4e6ec]',
+    chip: 'bg-accent-neutral-soft text-accent-neutral border-accent-neutral-line',
     weight: 1,
   },
   {
     value: 'Medium',
     label: 'Medium',
-    dot: 'bg-[#3b7ae4]',
+    dot: 'bg-accent-info-dot',
     text: 'text-ink-soft',
-    chip: 'bg-[#eaf1fe] text-[#1d5fd0] border-[#d2e0fb]',
+    chip: 'bg-accent-info-soft text-accent-info border-accent-info-line',
     weight: 2,
   },
   {
     value: 'High',
     label: 'High',
-    dot: 'bg-[#e08a1e]',
+    dot: 'bg-accent-caution-dot',
     text: 'text-ink-soft',
-    chip: 'bg-[#fdf3e5] text-[#a4600b] border-[#f2ddbe]',
+    chip: 'bg-accent-caution-soft text-accent-caution border-accent-caution-line',
     weight: 3,
   },
   {
     value: 'Critical',
     label: 'Critical',
-    dot: 'bg-[#d92d20]',
+    dot: 'bg-accent-danger-dot',
     text: 'text-ink-soft',
-    chip: 'bg-[#fdeceb] text-[#b42318] border-[#f7d4d1]',
+    chip: 'bg-accent-danger-soft text-accent-danger border-accent-danger-line',
     weight: 4,
   },
 ]
