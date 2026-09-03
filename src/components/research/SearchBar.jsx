@@ -21,9 +21,9 @@ export function SearchBar({ value, onChange, placeholder = 'Search research…',
         placeholder={placeholder}
         autoComplete="off"
         className={cn(
-          'h-10 w-full rounded-lg border border-line bg-surface pr-9 pl-9 text-[13.5px] text-ink shadow-xs',
-          'transition-all duration-150 placeholder:text-ink-faint',
-          'hover:border-line-strong focus:border-brand focus:ring-3 focus:ring-ring-brand focus:outline-none',
+          'h-9 w-full rounded-md border border-line bg-surface pr-9 pl-9 text-[13.5px] text-ink',
+          'transition-colors duration-150 placeholder:text-ink-faint',
+          'hover:border-line-strong focus:border-line-strong focus:ring-2 focus:ring-ring-brand focus:outline-none',
           '[&::-webkit-search-cancel-button]:appearance-none',
         )}
       />
@@ -33,7 +33,7 @@ export function SearchBar({ value, onChange, placeholder = 'Search research…',
           type="button"
           onClick={() => onChange('')}
           aria-label="Clear search"
-          className="absolute top-1/2 right-2 -translate-y-1/2 rounded-md p-1 text-ink-faint transition-colors hover:bg-surface-sunken hover:text-ink"
+          className="absolute top-1/2 right-2 -translate-y-1/2 rounded-md p-1 text-ink-faint transition-colors hover:text-ink"
         >
           <X className="h-3.5 w-3.5" aria-hidden="true" />
         </button>

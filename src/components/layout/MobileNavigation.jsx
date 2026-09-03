@@ -43,21 +43,21 @@ export function MobileNavigation({ open, onClose, activeView, onNavigate, counts
         role="dialog"
         aria-modal="true"
         aria-label="Main navigation"
-        className="animate-sheet-in relative flex h-full w-[280px] max-w-[85vw] flex-col border-r border-line bg-surface-muted shadow-overlay"
+        className="animate-sheet-in relative flex h-full w-[264px] max-w-[85vw] flex-col border-r border-line bg-canvas shadow-overlay"
       >
-        <div className="flex h-16 shrink-0 items-center justify-between gap-3 border-b border-line-soft px-4">
+        <div className="flex h-14 shrink-0 items-center justify-between gap-3 px-4">
           <Logo />
           <button
             type="button"
             onClick={onClose}
             aria-label="Close navigation"
-            className="-mr-1 rounded-lg p-2 text-ink-faint transition-colors hover:bg-surface hover:text-ink"
+            className="-mr-1 rounded-md p-2 text-ink-faint transition-colors hover:text-ink"
           >
             <X className="h-[18px] w-[18px]" aria-hidden="true" />
           </button>
         </div>
 
-        <div className="scrollbar-slim flex-1 overflow-y-auto px-3 py-5">
+        <div className="scrollbar-slim flex-1 overflow-y-auto px-2.5 py-2">
           <SidebarNav
             activeView={activeView}
             counts={counts}
@@ -68,7 +68,7 @@ export function MobileNavigation({ open, onClose, activeView, onNavigate, counts
           />
         </div>
 
-        <div className="shrink-0 border-t border-line-soft p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
+        <div className="shrink-0 px-2.5 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
           <WorkspaceProfile />
         </div>
       </div>

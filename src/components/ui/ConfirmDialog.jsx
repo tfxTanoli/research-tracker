@@ -24,7 +24,7 @@ export function ConfirmDialog({
           variant="secondary"
           size="lg"
           onClick={onClose}
-          className="sm:h-9.5 sm:px-3.5"
+         
         >
           Cancel
         </Button>
@@ -32,7 +32,6 @@ export function ConfirmDialog({
           variant={tone === 'danger' ? 'danger' : 'primary'}
           size="lg"
           onClick={onConfirm}
-          className="sm:h-9.5 sm:px-4"
         >
           {confirmLabel}
         </Button>

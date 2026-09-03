@@ -88,7 +88,7 @@ export function Dropdown({ trigger, children, align = 'right', className, label 
               setOpen(false)
             }}
             className={cn(
-              'animate-pop-in scrollbar-slim z-[65] min-w-[196px] overflow-y-auto rounded-xl border border-line bg-surface p-1.5 shadow-pop',
+              'animate-pop-in scrollbar-slim z-[65] min-w-[184px] overflow-y-auto rounded-lg border border-line bg-surface p-1 shadow-pop',
               className,
             )}
           >
@@ -106,11 +106,11 @@ export function DropdownItem({ icon: Icon, children, selected, tone = 'default',
       type="button"
       role="menuitem"
       className={cn(
-        'flex w-full items-center gap-2.5 rounded-lg px-2.5 py-2 text-left text-[13px] font-medium transition-colors',
+        'flex w-full items-center gap-2.5 rounded-md px-2.5 py-1.5 text-left text-[13px] transition-colors',
         tone === 'danger'
           ? 'text-danger hover:bg-danger-soft'
           : 'text-ink-soft hover:bg-surface-sunken hover:text-ink',
-        selected && tone !== 'danger' && 'bg-brand-soft text-brand-ink hover:bg-brand-soft',
+        selected && tone !== 'danger' && 'bg-surface-sunken text-ink hover:bg-surface-sunken',
       )}
       {...props}
     >
@@ -122,12 +122,12 @@ export function DropdownItem({ icon: Icon, children, selected, tone = 'default',
 
 export function DropdownLabel({ children }) {
   return (
-    <p className="px-2.5 pt-1.5 pb-1 text-[11px] font-semibold tracking-wider text-ink-faint uppercase">
+    <p className="px-2.5 pt-1.5 pb-1 text-[11.5px] text-ink-faint">
       {children}
     </p>
   )
 }
 
 export function DropdownSeparator() {
-  return <div className="my-1.5 h-px bg-line-soft" />
+  return <div className="my-1 h-px bg-line" />
 }

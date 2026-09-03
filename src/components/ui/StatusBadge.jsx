@@ -7,7 +7,7 @@ export function StatusBadge({ status, className }) {
   return (
     <span
       className={cn(
-        'inline-flex items-center gap-1.5 rounded-md border px-2 py-[3px] text-[11.5px] font-semibold whitespace-nowrap',
+        'inline-flex items-center gap-1.5 rounded-md border px-2 py-[2px] text-[11.5px] whitespace-nowrap',
         config.badge,
         className,
       )}

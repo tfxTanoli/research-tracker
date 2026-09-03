@@ -1,46 +1,52 @@
 /**
  * Shared vocabulary for the app: statuses, priorities, tags and sort options.
- * Badge classes live here so every surface renders a status the exact same way,
- * and they name accent-family tokens rather than literal colours so both
- * themes are covered by the palette in index.css.
+ * Badge classes live here so every surface renders a status the exact same way.
+ *
+ * There is one chip style for the whole app — a neutral hairline pill — and the
+ * only thing that varies between values is a small dot placed on a grey ramp:
+ * `step-*` for the research workflow, `level-*` for priority. That keeps a long
+ * list monochrome while still giving each row something to scan by. The ramps
+ * are tokens in index.css, so both themes are covered by the palette swap.
  */
+
+const CHIP = 'bg-accent-neutral-soft text-accent-neutral border-accent-neutral-line'
 
 export const STATUSES = [
   {
     value: 'Idea',
     label: 'Idea',
-    badge: 'bg-accent-caution-soft text-accent-caution border-accent-caution-line',
-    dot: 'bg-accent-caution-dot',
+    badge: CHIP,
+    dot: 'bg-step-1',
   },
   {
     value: 'To Research',
     label: 'To Research',
-    badge: 'bg-accent-neutral-soft text-accent-neutral border-accent-neutral-line',
-    dot: 'bg-accent-neutral-dot',
+    badge: CHIP,
+    dot: 'bg-step-2',
   },
   {
     value: 'In Progress',
     label: 'In Progress',
-    badge: 'bg-accent-info-soft text-accent-info border-accent-info-line',
-    dot: 'bg-accent-info-dot',
+    badge: CHIP,
+    dot: 'bg-step-3',
   },
   {
     value: 'Reviewing',
     label: 'Reviewing',
-    badge: 'bg-accent-violet-soft text-accent-violet border-accent-violet-line',
-    dot: 'bg-accent-violet-dot',
+    badge: CHIP,
+    dot: 'bg-step-4',
   },
   {
     value: 'Completed',
     label: 'Completed',
-    badge: 'bg-accent-positive-soft text-accent-positive border-accent-positive-line',
-    dot: 'bg-accent-positive-dot',
+    badge: CHIP,
+    dot: 'bg-step-5',
   },
   {
     value: 'Archived',
     label: 'Archived',
-    badge: 'bg-accent-muted-soft text-accent-muted border-accent-muted-line',
-    dot: 'bg-accent-muted-dot',
+    badge: CHIP,
+    dot: 'bg-step-0',
   },
 ]
 
@@ -48,33 +54,33 @@ export const PRIORITIES = [
   {
     value: 'Low',
     label: 'Low',
-    dot: 'bg-accent-muted-dot',
+    dot: 'bg-level-1',
     text: 'text-ink-faint',
-    chip: 'bg-accent-neutral-soft text-accent-neutral border-accent-neutral-line',
+    chip: CHIP,
     weight: 1,
   },
   {
     value: 'Medium',
     label: 'Medium',
-    dot: 'bg-accent-info-dot',
-    text: 'text-ink-soft',
-    chip: 'bg-accent-info-soft text-accent-info border-accent-info-line',
+    dot: 'bg-level-2',
+    text: 'text-ink-faint',
+    chip: CHIP,
     weight: 2,
   },
   {
     value: 'High',
     label: 'High',
-    dot: 'bg-accent-caution-dot',
+    dot: 'bg-level-3',
     text: 'text-ink-soft',
-    chip: 'bg-accent-caution-soft text-accent-caution border-accent-caution-line',
+    chip: CHIP,
     weight: 3,
   },
   {
     value: 'Critical',
     label: 'Critical',
-    dot: 'bg-accent-danger-dot',
-    text: 'text-ink-soft',
-    chip: 'bg-accent-danger-soft text-accent-danger border-accent-danger-line',
+    dot: 'bg-level-4',
+    text: 'text-ink',
+    chip: CHIP,
     weight: 4,
   },
 ]

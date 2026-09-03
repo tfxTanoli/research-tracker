@@ -25,10 +25,10 @@ export function AppLayout({
         counts={counts}
       />
 
-      <div className="flex min-h-dvh flex-col lg:pl-[264px]">
+      <div className="flex min-h-dvh flex-col lg:pl-[236px]">
         <Header {...headerProps} onOpenNavigation={onOpenNav} />
 
-        <main className="mx-auto w-full max-w-[1440px] flex-1 px-4 pt-5 pb-16 sm:px-6 sm:pt-6 lg:px-8">
+        <main className="mx-auto w-full max-w-[1440px] flex-1 px-4 pt-6 pb-16 sm:px-6 lg:px-8">
           {children}
         </main>
       </div>

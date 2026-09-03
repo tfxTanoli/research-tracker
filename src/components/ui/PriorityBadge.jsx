@@ -12,7 +12,7 @@ export function PriorityBadge({ priority, variant = 'plain', className }) {
     return (
       <span
         className={cn(
-          'inline-flex items-center gap-1.5 rounded-md border px-2 py-[3px] text-[11.5px] font-semibold whitespace-nowrap',
+          'inline-flex items-center gap-1.5 rounded-md border px-2 py-[2px] text-[11.5px] whitespace-nowrap',
           config.chip,
           className,
         )}
@@ -26,7 +26,7 @@ export function PriorityBadge({ priority, variant = 'plain', className }) {
   return (
     <span
       className={cn(
-        'inline-flex items-center gap-1.5 text-[12px] font-medium whitespace-nowrap',
+        'inline-flex items-center gap-1.5 text-[12px] whitespace-nowrap',
         config.text,
         className,
       )}

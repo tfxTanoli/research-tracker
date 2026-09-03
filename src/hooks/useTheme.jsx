@@ -25,7 +25,7 @@ const THEME_VALUES = THEME_OPTIONS.map((option) => option.value)
 const DEFAULT_THEME = 'system'
 
 /** The colour behind the browser chrome on mobile, per resolved theme. */
-const THEME_COLORS = { light: '#f6f7f9', dark: '#0e0f13' }
+const THEME_COLORS = { light: '#ffffff', dark: '#0a0a0a' }
 
 const DARK_QUERY = '(prefers-color-scheme: dark)'
 

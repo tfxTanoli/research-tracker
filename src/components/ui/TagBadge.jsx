@@ -3,11 +3,11 @@ import { cn } from '../../utils/cn'
 
 export function TagBadge({ tag, onRemove, onClick, active, size = 'md', className }) {
   const base = cn(
-    'inline-flex max-w-full items-center gap-1 rounded-md border font-medium whitespace-nowrap transition-colors',
-    size === 'sm' ? 'px-1.5 py-[2px] text-[11px]' : 'px-2 py-[3px] text-[11.5px]',
+    'inline-flex max-w-full items-center gap-1 rounded-md border whitespace-nowrap transition-colors',
+    size === 'sm' ? 'px-1.5 py-[1px] text-[11px]' : 'px-2 py-[2px] text-[11.5px]',
     active
-      ? 'border-brand-line bg-brand-soft text-brand-ink'
-      : 'border-line bg-surface-muted text-ink-soft',
+      ? 'border-line-strong bg-surface-sunken text-ink'
+      : 'border-line bg-surface text-ink-soft',
     className,
   )
 
@@ -29,7 +29,7 @@ export function TagBadge({ tag, onRemove, onClick, active, size = 'md', classNam
 
   if (onClick) {
     return (
-      <button type="button" onClick={onClick} className={cn(base, 'hover:border-line-strong hover:bg-surface-sunken')}>
+      <button type="button" onClick={onClick} className={cn(base, 'hover:border-line-strong hover:text-ink')}>
         <span className="truncate">{tag}</span>
       </button>
     )

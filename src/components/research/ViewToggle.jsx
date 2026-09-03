@@ -11,7 +11,7 @@ export function ViewToggle({ view, onChange }) {
     <div
       role="radiogroup"
       aria-label="Layout"
-      className="flex shrink-0 items-center gap-0.5 rounded-lg border border-line bg-surface p-0.5 shadow-xs"
+      className="flex shrink-0 items-center rounded-md border border-line bg-surface p-0.5"
     >
       {OPTIONS.map((option) => {
         const Icon = option.icon
@@ -27,9 +27,9 @@ export function ViewToggle({ view, onChange }) {
             title={option.label}
             onClick={() => onChange(option.value)}
             className={cn(
-              'flex h-9 w-9 items-center justify-center rounded-md transition-all duration-150 sm:h-8 sm:w-8',
+              'flex h-8 w-8 items-center justify-center rounded-sm transition-colors duration-150',
               isActive
-                ? 'bg-surface-sunken text-ink shadow-xs'
+                ? 'bg-surface-sunken text-ink'
                 : 'text-ink-faint hover:text-ink-soft',
             )}
           >

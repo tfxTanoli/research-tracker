@@ -9,19 +9,12 @@ export function AddResearchModal({ open, onClose, onSave, availableTags }) {
       onClose={onClose}
       size="lg"
       title="Add research"
-      description="Capture a topic now and fill in the details as you go."
       footer={
         <div className="flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
-          <Button variant="secondary" size="lg" onClick={onClose} className="sm:h-9.5 sm:px-3.5">
+          <Button variant="secondary" size="lg" onClick={onClose}>
             Cancel
           </Button>
-          <Button
-            type="submit"
-            form={FORM_ID}
-            variant="primary"
-            size="lg"
-            className="sm:h-9.5 sm:px-4"
-          >
+          <Button type="submit" form={FORM_ID} variant="primary" size="lg">
             Save research
           </Button>
         </div>
