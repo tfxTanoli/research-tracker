@@ -2,9 +2,9 @@ import { AlertTriangle, CheckCircle2, Info, X } from 'lucide-react'
 import { cn } from '../../utils/cn'
 
 const VARIANTS = {
-  success: { icon: CheckCircle2, tone: 'text-positive' },
+  success: { icon: CheckCircle2, tone: 'text-ink-soft' },
   error: { icon: AlertTriangle, tone: 'text-danger' },
-  info: { icon: Info, tone: 'text-info' },
+  info: { icon: Info, tone: 'text-ink-soft' },
 }
 
 function Toast({ toast, onDismiss }) {
@@ -13,14 +13,14 @@ function Toast({ toast, onDismiss }) {
   return (
     <li
       className={cn(
-        'animate-toast-in pointer-events-auto flex w-full items-start gap-3 rounded-xl border',
-        'border-line bg-surface p-3.5 shadow-pop sm:w-[360px]',
+        'animate-toast-in pointer-events-auto flex w-full items-start gap-3 rounded-lg border',
+        'border-line bg-surface p-3.5 shadow-pop sm:w-[340px]',
       )}
     >
       <Icon className={cn('mt-0.5 h-[18px] w-[18px] shrink-0', tone)} aria-hidden="true" />
 
       <div className="min-w-0 flex-1">
-        <p className="text-[13px] font-semibold text-ink">{toast.title}</p>
+        <p className="text-[13px] font-medium text-ink">{toast.title}</p>
         {toast.description && (
           <p className="mt-0.5 text-[13px] leading-relaxed text-ink-faint">{toast.description}</p>
         )}
@@ -31,7 +31,7 @@ function Toast({ toast, onDismiss }) {
               toast.action.onClick()
               onDismiss(toast.id)
             }}
-            className="mt-2 rounded-md text-[13px] font-semibold text-brand-ink transition-colors hover:text-brand-ink-hover"
+            className="mt-2 rounded-md text-[13px] font-medium text-brand-ink underline underline-offset-2 transition-colors hover:text-brand-ink-hover"
           >
             {toast.action.label}
           </button>

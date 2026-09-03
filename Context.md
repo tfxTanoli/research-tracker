@@ -15,8 +15,9 @@ attach a source link and notes, tag them, set a priority and a status, and then
 search, filter and sort their way back to anything they saved.
 
 The product target is a calm, premium productivity tool — the reference points are
-Notion, Linear, Raycast and Airtable in *feel*, not in copied visuals: neutral
-canvas, white cards, soft borders, restrained colour, strong typographic hierarchy.
+Notion, Linear, Raycast and Airtable in *feel*, not in copied visuals. The build is
+deliberately minimal: a plain white canvas, hairline borders instead of shadows,
+near-monochrome colour, and only the information a screen actually needs.
 
 ## 2. Scope and constraints
 
@@ -56,27 +57,34 @@ utilities automatically (`--color-brand` → `bg-brand`, `text-brand`, …).
 
 Tokens live in `src/index.css`:
 
-- **Surfaces** — `canvas` (page), `surface` (cards), `surface-muted`,
-  `surface-sunken`, plus `canvas-veil` / `surface-veil` for translucent layers
-- **Lines** — `line`, `line-soft`, `line-strong`
+- **Surfaces** — `canvas` (page, plain white), `surface` (cards), `surface-muted`,
+  `surface-sunken`, plus `canvas-veil` for the translucent header
+- **Lines** — `line`, `line-strong`
 - **Text** — `ink`, `ink-soft`, `ink-faint`
-- **Brand** — indigo `brand` (fill), `brand-hover`, `brand-ink` (text on pale
-  backgrounds), `brand-ink-hover`, `brand-soft`, `brand-line`, `brand-muted`
-- **Semantic** — `positive`, `caution`, `danger`, `info`, each with a `-soft` pair
-- **Accent families** — `accent-{neutral,muted,info,violet,positive,caution,danger}`,
-  each a text tone, a `-soft` fill, a `-line` hairline and a `-dot`; this is the
-  tinted badge palette every categorical label draws from
-- **Elevation** — `shadow-card`, `shadow-raised`, `shadow-pop`, `shadow-overlay`
+- **Brand** — there is no brand hue; the accent *is* the ink. `brand` (fill),
+  `brand-hover`, `on-brand` (whatever sits on that fill), `brand-ink` (the accent
+  used as text), `brand-ink-hover`, `brand-muted`
+- **Semantic** — `danger` alone, with `-hover`, `-soft` and `-line`. It is the only
+  hue left in the palette, kept because a destructive action has to be unmistakable
+- **Badge chrome** — `accent-neutral` + `-soft` + `-line`: one neutral chip shared
+  by every status, priority and tag
+- **Ramps** — `step-0…5` (research workflow) and `level-1…4` (priority), a
+  light-to-dark grey ladder that gives each value a dot to scan by without hue
+- **Elevation** — `shadow-pop` and `shadow-overlay` only. Resting surfaces are flat
+  and separated by hairlines; only menus, dialogs and toasts cast a shadow
+- **Radii** — the Tailwind `--radius-*` scale is overridden globally (4–10px), so
+  every corner in the app flattens from one place
 - **Motion** — six short keyframes (`animate-dialog-in`, `animate-sheet-in`,
   `animate-toast-in`, …), all suppressed under `prefers-reduced-motion`
 
-Status and priority colours are **not** ad-hoc per component. They are declared once
-in `src/utils/constants.js` alongside each value — as accent-family token names, not
-literal colours — so a status renders identically in a card, a table row, a filter
-chip and the dashboard breakdown, in either theme.
+Status and priority styling is **not** ad-hoc per component. It is declared once in
+`src/utils/constants.js` alongside each value — as ramp token names, not literal
+colours — so a status renders identically in a card, a table row, a filter chip and
+the dashboard breakdown, in either theme.
 
-Priority is deliberately quiet — a small coloured dot plus a neutral label — so the
-library does not become a wall of colour. Only filter chips use the tinted variant.
+Emphasis is carried by weight, spacing and position rather than by colour. Every
+badge in the app is the same neutral pill; the only thing that varies between values
+is the shade of a 6px dot.
 
 ## 5. Architecture
 
@@ -139,13 +147,14 @@ of the wrong theme on load.
 **Opacity modifiers are banned on themed colours.** Tailwind 4 inlines the literal
 colour when a token is written as `bg-canvas/85`, which would leave a white header
 floating over the dark theme. Anything translucent gets its own full-alpha token
-(`canvas-veil`, `surface-veil`, `scrim`, `ring-brand`, `brand-muted`, `brand-bar`)
-so it flips with everything else.
+(`canvas-veil`, `scrim`, `ring-brand`, `brand-muted`) so it flips with everything
+else.
 
-**Brand splits into a fill and an ink tone.** `brand` always sits under white text
-so it has to stay dark; `brand-ink` is the same colour used *as* text on a pale or
-soft background, which on a dark canvas has to travel the other way. In light they
-are identical, which is why one token was enough until now.
+**Brand splits into a fill, its contrast and an ink tone.** With the accent set to
+ink, `brand` is near-black in light and near-white in dark — so `on-brand` exists to
+carry whatever sits on that fill, and a solid button is black-on-white in one theme
+and white-on-black in the other. `brand-ink` is the same accent used *as* text on a
+pale background. Hard-coding `text-white` on a brand fill breaks the dark theme.
 
 **Layout preference is a preference, not session state.** Toggling grid/table in the
 library writes straight to `usePreferences`, which is what Settings displays and

@@ -1,13 +1,10 @@
 import { useState } from 'react'
-import { ArrowUpDown, Check, ChevronDown, SlidersHorizontal, X } from 'lucide-react'
+import { Check, ChevronDown, SlidersHorizontal, X } from 'lucide-react'
 import { Button } from '../ui/Button'
 import { Dropdown, DropdownItem, DropdownLabel } from '../ui/Dropdown'
 import { ViewToggle } from './ViewToggle'
 import { PRIORITIES, SORT_OPTIONS, STATUSES } from '../../utils/constants'
 import { cn } from '../../utils/cn'
-import { pluralize } from '../../utils/format'
-
-const FILTER_LABELS = { statuses: 'Status', priorities: 'Priority', tags: 'Tag' }
 
 function CheckOption({ label, checked, onToggle }) {
   return (
@@ -18,15 +15,15 @@ function CheckOption({ label, checked, onToggle }) {
       data-keep-open
       onClick={onToggle}
       className={cn(
-        'flex w-full items-center gap-2.5 rounded-lg px-2.5 py-2 text-left text-[13px] font-medium transition-colors',
+        'flex w-full items-center gap-2.5 rounded-md px-2.5 py-1.5 text-left text-[13px] transition-colors',
         checked ? 'text-ink' : 'text-ink-soft',
         'hover:bg-surface-sunken hover:text-ink',
       )}
     >
       <span
         className={cn(
-          'flex h-4 w-4 shrink-0 items-center justify-center rounded-[5px] border transition-colors',
-          checked ? 'border-brand bg-brand text-white' : 'border-line-strong bg-surface',
+          'flex h-4 w-4 shrink-0 items-center justify-center rounded-sm border transition-colors',
+          checked ? 'border-brand bg-brand text-on-brand' : 'border-line-strong bg-surface',
         )}
       >
         {checked && <Check className="h-3 w-3" strokeWidth={3} aria-hidden="true" />}
@@ -50,16 +47,12 @@ function FilterMenu({ label, values, selected, onToggle }) {
           size="md"
           aria-expanded={open}
           aria-haspopup="menu"
-          className={cn(count > 0 && 'border-brand-line bg-brand-soft text-brand-ink')}
+          className={cn(count > 0 && 'border-line-strong text-ink')}
         >
           {label}
-          {count > 0 && (
-            <span className="rounded bg-brand px-1.5 text-[11px] font-bold text-white tabular-nums">
-              {count}
-            </span>
-          )}
+          {count > 0 && <span className="text-ink-faint tabular-nums">{count}</span>}
           <ChevronDown
-            className={cn('h-3.5 w-3.5 opacity-60 transition-transform', open && 'rotate-180')}
+            className={cn('h-3.5 w-3.5 text-ink-faint transition-transform', open && 'rotate-180')}
             aria-hidden="true"
           />
         </Button>
@@ -85,9 +78,7 @@ function FilterMenu({ label, values, selected, onToggle }) {
 function MobileFilterGroup({ label, values, selected, onToggle }) {
   return (
     <div>
-      <p className="mb-2 text-[11px] font-semibold tracking-wider text-ink-faint uppercase">
-        {label}
-      </p>
+      <p className="mb-2 text-[12px] text-ink-faint">{label}</p>
       <div className="flex flex-wrap gap-1.5">
         {values.map((value) => {
           const isActive = selected.includes(value)
@@ -98,9 +89,9 @@ function MobileFilterGroup({ label, values, selected, onToggle }) {
               aria-pressed={isActive}
               onClick={() => onToggle(value)}
               className={cn(
-                'rounded-lg border px-2.5 py-1.5 text-[12.5px] font-medium transition-colors',
+                'rounded-md border px-2.5 py-1 text-[12.5px] transition-colors',
                 isActive
-                  ? 'border-brand-line bg-brand-soft text-brand-ink'
+                  ? 'border-line-strong bg-surface-sunken text-ink'
                   : 'border-line bg-surface text-ink-soft',
               )}
             >
@@ -163,29 +154,33 @@ export function FilterBar({
           onClick={() => setPanelOpen((value) => !value)}
           aria-expanded={panelOpen}
           aria-controls="mobile-filter-panel"
-          className={cn(
-            'sm:hidden',
-            activeCount > 0 && 'border-brand-line bg-brand-soft text-brand-ink',
-          )}
+          className={cn('sm:hidden', activeCount > 0 && 'border-line-strong text-ink')}
         >
           <SlidersHorizontal className="h-4 w-4" aria-hidden="true" />
           Filters
-          {activeCount > 0 && (
-            <span className="rounded bg-brand px-1.5 text-[11px] font-bold text-white tabular-nums">
-              {activeCount}
-            </span>
-          )}
+          {activeCount > 0 && <span className="text-ink-faint tabular-nums">{activeCount}</span>}
         </Button>
 
+        {/* The result count sits with the controls rather than on its own line. */}
         <div className="ml-auto flex items-center gap-2">
+          <p className="text-[12.5px] text-ink-faint tabular-nums">
+            {resultCount}/{totalCount}
+          </p>
+
           <Dropdown
             align="right"
             label="Sort research"
             trigger={({ open }) => (
               <Button variant="secondary" size="md" aria-expanded={open} aria-haspopup="menu">
-                <ArrowUpDown className="h-4 w-4 opacity-70" aria-hidden="true" />
                 <span className="hidden max-w-[150px] truncate md:inline">{sortLabel}</span>
                 <span className="md:hidden">Sort</span>
+                <ChevronDown
+                  className={cn(
+                    'h-3.5 w-3.5 text-ink-faint transition-transform',
+                    open && 'rotate-180',
+                  )}
+                  aria-hidden="true"
+                />
               </Button>
             )}
           >
@@ -208,7 +203,7 @@ export function FilterBar({
       {panelOpen && (
         <div
           id="mobile-filter-panel"
-          className="animate-content-in flex flex-col gap-4 rounded-xl border border-line bg-surface p-3.5 shadow-card sm:hidden"
+          className="animate-content-in flex flex-col gap-4 rounded-lg border border-line bg-surface p-3.5 sm:hidden"
         >
           {groups.map((group) => (
             <MobileFilterGroup
@@ -222,47 +217,36 @@ export function FilterBar({
         </div>
       )}
 
-      <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-        <p className="text-[12.5px] text-ink-faint">
-          Showing <span className="font-semibold text-ink-soft tabular-nums">{resultCount}</span> of{' '}
-          <span className="tabular-nums">{totalCount}</span>{' '}
-          {pluralize(totalCount, 'entry', 'entries')}
-        </p>
+      {activeCount > 0 && (
+        <div className="flex flex-wrap items-center gap-x-2 gap-y-2">
+          <ul className="flex flex-wrap items-center gap-1.5">
+            {activeFilters.map(({ key, value }) => (
+              <li key={`${key}-${value}`}>
+                <button
+                  type="button"
+                  onClick={() => onToggleFilter(key, value)}
+                  aria-label={`Remove filter: ${value}`}
+                  className="group inline-flex items-center gap-1 rounded-md border border-line bg-surface py-[3px] pr-1.5 pl-2 text-[11.5px] text-ink-soft transition-colors hover:border-line-strong"
+                >
+                  <span className="max-w-[140px] truncate">{value}</span>
+                  <X
+                    className="h-3 w-3 text-ink-faint transition-colors group-hover:text-ink"
+                    aria-hidden="true"
+                  />
+                </button>
+              </li>
+            ))}
+          </ul>
 
-        {activeCount > 0 && (
-          <>
-            <span className="hidden h-3.5 w-px bg-line sm:block" aria-hidden="true" />
-
-            <ul className="flex flex-wrap items-center gap-1.5">
-              {activeFilters.map(({ key, value }) => (
-                <li key={`${key}-${value}`}>
-                  <button
-                    type="button"
-                    onClick={() => onToggleFilter(key, value)}
-                    aria-label={`Remove ${FILTER_LABELS[key]} filter: ${value}`}
-                    className="group inline-flex items-center gap-1 rounded-md border border-line bg-surface py-[3px] pr-1.5 pl-2 text-[11.5px] font-medium text-ink-soft shadow-xs transition-colors hover:border-line-strong hover:bg-surface-muted"
-                  >
-                    <span className="text-ink-faint">{FILTER_LABELS[key]}:</span>
-                    <span className="max-w-[140px] truncate">{value}</span>
-                    <X
-                      className="h-3 w-3 text-ink-faint transition-colors group-hover:text-ink"
-                      aria-hidden="true"
-                    />
-                  </button>
-                </li>
-              ))}
-            </ul>
-
-            <button
-              type="button"
-              onClick={onClearFilters}
-              className="rounded-md text-[12.5px] font-semibold text-brand-ink transition-colors hover:text-brand-ink-hover"
-            >
-              Clear filters
-            </button>
-          </>
-        )}
-      </div>
+          <button
+            type="button"
+            onClick={onClearFilters}
+            className="rounded-md text-[12px] text-ink-faint transition-colors hover:text-ink"
+          >
+            Clear
+          </button>
+        </div>
+      )}
     </section>
   )
 }

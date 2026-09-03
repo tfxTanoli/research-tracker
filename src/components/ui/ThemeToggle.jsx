@@ -22,12 +22,12 @@ export function ThemeToggle({ className, size = 'icon' }) {
       onClick={toggleTheme}
       aria-label={label}
       title={label}
-      className={cn('text-ink-soft hover:bg-surface hover:text-ink', className)}
+      className={cn('text-ink-faint hover:text-ink', className)}
     >
       {goingDark ? (
-        <Moon className="h-[18px] w-[18px]" aria-hidden="true" />
+        <Moon className="h-4 w-4" aria-hidden="true" />
       ) : (
-        <Sun className="h-[18px] w-[18px]" aria-hidden="true" />
+        <Sun className="h-4 w-4" aria-hidden="true" />
       )}
     </Button>
   )

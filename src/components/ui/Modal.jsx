@@ -100,13 +100,13 @@ export function Modal({
         onKeyDown={onKeyDown}
         className={cn(
           'animate-dialog-in relative flex max-h-[92dvh] w-full flex-col overflow-hidden bg-surface shadow-overlay',
-          'rounded-t-2xl sm:rounded-2xl',
+          'rounded-t-xl sm:rounded-xl',
           SIZES[size],
         )}
       >
-        <header className="flex items-start justify-between gap-4 border-b border-line-soft px-5 py-4 sm:px-6">
+        <header className="flex items-start justify-between gap-4 border-b border-line px-5 py-3.5 sm:px-6">
           <div className="min-w-0">
-            <h2 id={titleId} className="text-[15px] font-semibold tracking-tight text-ink">
+            <h2 id={titleId} className="text-[14.5px] font-medium tracking-tight text-ink">
               {title}
             </h2>
             {description && (
@@ -120,7 +120,7 @@ export function Modal({
             type="button"
             onClick={onClose}
             aria-label="Close"
-            className="-m-1.5 shrink-0 rounded-lg p-1.5 text-ink-faint transition-colors hover:bg-surface-sunken hover:text-ink"
+            className="-m-1.5 shrink-0 rounded-md p-1.5 text-ink-faint transition-colors hover:text-ink"
           >
             <X className="h-[18px] w-[18px]" aria-hidden="true" />
           </button>
@@ -129,7 +129,7 @@ export function Modal({
         <div className="scrollbar-slim flex-1 overflow-y-auto px-5 py-5 sm:px-6">{children}</div>
 
         {footer && (
-          <footer className="border-t border-line-soft bg-surface-muted px-5 py-3.5 pb-[max(0.875rem,env(safe-area-inset-bottom))] sm:px-6 sm:pb-3.5">
+          <footer className="border-t border-line px-5 py-3.5 pb-[max(0.875rem,env(safe-area-inset-bottom))] sm:px-6 sm:pb-3.5">
             {footer}
           </footer>
         )}

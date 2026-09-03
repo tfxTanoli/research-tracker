@@ -205,7 +205,6 @@ export function ResearchWorkspace() {
         return (
           <TagsPage
             tagUsage={tagUsage}
-            entries={entries}
             search={search}
             onSelectTag={(tag) => openFiltered('tags', tag)}
           />
@@ -260,7 +259,6 @@ export function ResearchWorkspace() {
         onCloseNav={() => setNavOpen(false)}
         headerProps={{
           title: navItem.title,
-          subtitle: navItem.subtitle,
           search,
           onSearchChange: setSearch,
           onAddResearch: libraryProps.onAdd,

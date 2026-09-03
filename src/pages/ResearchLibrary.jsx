@@ -37,7 +37,7 @@ export function ResearchLibrary({
   const isFiltered = search.trim() !== '' || Object.values(filters).some((list) => list.length > 0)
 
   return (
-    <div className="flex flex-col gap-5 sm:gap-6">
+    <div className="flex flex-col gap-5">
       {showStats && <StatsGrid stats={stats} />}
 
       <FilterBar
@@ -76,7 +76,7 @@ export function ResearchLibrary({
         <EmptyState
           icon={SearchX}
           title="No research found"
-          description="Try changing your search or filters — there may be a match under a different status or tag."
+          description="Try a different search, or clear the filters."
           action={
             <>
               <Button
@@ -86,7 +86,7 @@ export function ResearchLibrary({
                   onClearSearch()
                 }}
               >
-                Clear search and filters
+                Clear all
               </Button>
               <Button variant="primary" onClick={onAdd}>
                 <Plus className="h-4 w-4" aria-hidden="true" />

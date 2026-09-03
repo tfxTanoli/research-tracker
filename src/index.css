@@ -1,7 +1,13 @@
 @import "tailwindcss";
 
 /* ------------------------------------------------------------------
-   Design tokens — a calm, neutral productivity surface.
+   Design tokens — a minimal, near-monochrome white workspace.
+
+   The palette is deliberately almost colourless: paper-white surfaces,
+   hairline greys, near-black ink. Emphasis is carried by weight, spacing
+   and a light-to-dark grey ramp rather than by hue, so the interface stays
+   quiet no matter how much is on screen. The one chromatic exception is
+   `danger`, kept because a destructive action has to be unmistakable.
 
    Every colour in the app resolves through one of these variables, so a
    theme is a palette swap and nothing else. The values declared here are
@@ -13,108 +19,89 @@
   --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
     Roboto, Helvetica, Arial, sans-serif;
 
-  /* Surfaces */
-  --color-canvas: #f6f7f9;
+  /* Corners — flattened globally so no component has to opt in. */
+  --radius-sm: 3px;
+  --radius-md: 4px;
+  --radius-lg: 6px;
+  --radius-xl: 8px;
+  --radius-2xl: 10px;
+
+  /* Surfaces — the canvas is plain white; cards sit on it as hairlines. */
+  --color-canvas: #ffffff;
   --color-surface: #ffffff;
-  --color-surface-muted: #fafbfc;
-  --color-surface-sunken: #f1f2f5;
+  --color-surface-muted: #fafafa;
+  --color-surface-sunken: #f4f4f5;
 
   /* Lines */
-  --color-line: #e5e7ec;
-  --color-line-soft: #eef0f3;
-  --color-line-strong: #d6d9e0;
+  --color-line: #eaeaea;
+  --color-line-strong: #d4d4d4;
 
   /* Text */
-  --color-ink: #14161b;
-  --color-ink-soft: #4a4f59;
-  --color-ink-faint: #828895;
+  --color-ink: #111111;
+  --color-ink-soft: #5c5c5c;
+  --color-ink-faint: #9a9a9a;
 
   /* Brand.
-     `brand` is the *fill* — it always sits under white text, so it has to stay
-     dark enough for that. `brand-ink` is the same colour used as *text or an
-     icon* on a pale or soft background, which on a dark canvas has to travel in
-     the opposite direction. In light they are the same value; in dark they part
-     company, which is the whole reason the two names exist. */
-  --color-brand: #4f46e5;
-  --color-brand-hover: #4338ca;
-  --color-brand-soft: #eef1fe;
-  --color-brand-line: #d9dcfb;
-  --color-brand-ink: #4f46e5;
-  --color-brand-ink-hover: #4338ca;
-  --color-brand-muted: rgba(79, 70, 229, 0.5);
-  --color-brand-bar: rgba(79, 70, 229, 0.7);
+     There is no brand hue any more — the accent *is* the ink. `brand` is the
+     fill behind a solid button, `on-brand` is whatever has to stay legible on
+     top of that fill, and `brand-ink` is the same accent used as text or an
+     icon on a pale background. In dark the fill and the ink swap ends of the
+     scale, which is the whole reason the three names exist. */
+  --color-brand: #111111;
+  --color-brand-hover: #000000;
+  --color-on-brand: #ffffff;
+  --color-brand-ink: #111111;
+  --color-brand-ink-hover: #000000;
+  --color-brand-muted: rgba(17, 17, 17, 0.35);
 
-  /* Semantic accents */
-  --color-positive: #0f7a55;
-  --color-positive-soft: #e8f6f0;
-  --color-caution: #a4600b;
-  --color-caution-soft: #fdf3e5;
-  --color-danger: #b42318;
-  --color-danger-hover: #9a1d13;
-  --color-danger-soft: #fdeceb;
-  --color-danger-line: #f0c9c5;
-  --color-info: #1d5fd0;
-  --color-info-soft: #eaf1fe;
+  /* The one hue left in the palette. A destructive action has to be
+     unmistakable, so danger keeps its red; every other former accent
+     (positive, info, caution) now resolves to plain ink. */
+  --color-danger: #b3261e;
+  --color-danger-hover: #8c1d18;
+  --color-danger-soft: #fdf3f2;
+  --color-danger-line: #ecd0cd;
 
-  /* Accent families — the tinted label palette shared by statuses,
-     priorities and any other categorical badge. Each family is a text
-     tone, a soft fill, a hairline and a dot. */
-  --color-accent-neutral: #4a4f59;
-  --color-accent-neutral-soft: #f1f2f5;
-  --color-accent-neutral-line: #e1e3ea;
-  --color-accent-neutral-dot: #8b909d;
+  /* Badge chrome — one neutral chip shared by every status, priority and tag,
+     so a dense list never turns into a wall of colour. */
+  --color-accent-neutral: #5c5c5c;
+  --color-accent-neutral-soft: #fafafa;
+  --color-accent-neutral-line: #eaeaea;
 
-  --color-accent-muted: #828895;
-  --color-accent-muted-soft: #fafbfc;
-  --color-accent-muted-line: #e8eaef;
-  --color-accent-muted-dot: #a9aeb9;
+  /* Status ramp — the workflow read as lightness, palest first. */
+  --color-step-0: #e6e6e6; /* Archived */
+  --color-step-1: #d4d4d4; /* Idea */
+  --color-step-2: #b4b4b4; /* To Research */
+  --color-step-3: #8f8f8f; /* In Progress */
+  --color-step-4: #6b6b6b; /* Reviewing */
+  --color-step-5: #111111; /* Completed */
 
-  --color-accent-info: #1d5fd0;
-  --color-accent-info-soft: #eaf1fe;
-  --color-accent-info-line: #d2e0fb;
-  --color-accent-info-dot: #3b7ae4;
-
-  --color-accent-violet: #6d28d9;
-  --color-accent-violet-soft: #f3eefe;
-  --color-accent-violet-line: #e2d7fb;
-  --color-accent-violet-dot: #8b5cf6;
-
-  --color-accent-positive: #0f7a55;
-  --color-accent-positive-soft: #e8f6f0;
-  --color-accent-positive-line: #c9e8db;
-  --color-accent-positive-dot: #12996b;
-
-  --color-accent-caution: #a4600b;
-  --color-accent-caution-soft: #fdf3e5;
-  --color-accent-caution-line: #f2ddbe;
-  --color-accent-caution-dot: #d99a2b;
-
-  --color-accent-danger: #b42318;
-  --color-accent-danger-soft: #fdeceb;
-  --color-accent-danger-line: #f7d4d1;
-  --color-accent-danger-dot: #d92d20;
+  /* Priority ramp — same idea, four rungs, urgency as darkness. */
+  --color-level-1: #d4d4d4; /* Low */
+  --color-level-2: #a3a3a3; /* Medium */
+  --color-level-3: #6b6b6b; /* High */
+  --color-level-4: #111111; /* Critical */
 
   /* Translucent surfaces and focus rings.
      These carry their own alpha rather than using an opacity modifier
      (`bg-canvas/85`), because a modifier makes Tailwind inline the literal
      colour — which would leave a white header floating over the dark theme. */
-  --color-canvas-veil: rgba(246, 247, 249, 0.85);
-  --color-surface-veil: rgba(255, 255, 255, 0.7);
-  --color-ring-brand: rgba(79, 70, 229, 0.12);
-  --color-ring-danger: rgba(180, 35, 24, 0.12);
+  --color-canvas-veil: rgba(255, 255, 255, 0.85);
+  --color-ring-brand: rgba(17, 17, 17, 0.1);
+  --color-ring-danger: rgba(179, 38, 30, 0.12);
 
   /* Odds and ends that still have to flip with the theme */
-  --color-star: #e0a51e;
+  --color-star: #111111;
   /* Carries its own alpha: an opacity modifier (`bg-scrim/45`) makes Tailwind
      inline the literal colour, which would strand the overlay in one theme. */
-  --color-scrim: rgba(20, 22, 27, 0.45);
-  --color-field-invalid: #e9b4ae;
+  --color-scrim: rgba(17, 17, 17, 0.35);
+  --color-field-invalid: #e0b4b0;
 
-  /* Elevation */
-  --shadow-card: 0 1px 2px rgba(20, 22, 27, 0.04), 0 1px 3px rgba(20, 22, 27, 0.03);
-  --shadow-raised: 0 2px 4px rgba(20, 22, 27, 0.04), 0 8px 20px -6px rgba(20, 22, 27, 0.10);
-  --shadow-pop: 0 8px 28px -8px rgba(20, 22, 27, 0.18), 0 2px 8px rgba(20, 22, 27, 0.06);
-  --shadow-overlay: 0 24px 60px -20px rgba(20, 22, 27, 0.35);
+  /* Elevation — resting surfaces are flat and separated by hairlines alone.
+     Only things that genuinely float (menus, dialogs, toasts) cast a shadow,
+     which is why there is no card or button shadow left to name. */
+  --shadow-pop: 0 4px 16px -4px rgba(17, 17, 17, 0.1), 0 1px 3px rgba(17, 17, 17, 0.06);
+  --shadow-overlay: 0 16px 48px -16px rgba(17, 17, 17, 0.25);
 }
 
 /* ------------------------------------------------------------------
@@ -136,97 +123,65 @@
   color-scheme: dark;
 
   /* Surfaces — near-black canvas, cards lifted one step above it. */
-  --color-canvas: #0e0f13;
-  --color-surface: #16181d;
-  --color-surface-muted: #1b1e24;
-  --color-surface-sunken: #23262e;
+  --color-canvas: #0a0a0a;
+  --color-surface: #0f0f0f;
+  --color-surface-muted: #131313;
+  --color-surface-sunken: #1c1c1c;
 
   /* Lines */
-  --color-line: #2b2f38;
-  --color-line-soft: #23262e;
-  --color-line-strong: #3b414d;
+  --color-line: #232323;
+  --color-line-strong: #363636;
 
   /* Text */
-  --color-ink: #eceef2;
-  --color-ink-soft: #adb4c0;
-  --color-ink-faint: #7d8695;
+  --color-ink: #f2f2f2;
+  --color-ink-soft: #a6a6a6;
+  --color-ink-faint: #6e6e6e;
 
-  /* Brand — the fill stays deep enough for white button labels, while the ink
-     tone lifts well clear of the dark surfaces it is read against. */
-  --color-brand: #5f56ea;
-  --color-brand-hover: #6d64f0;
-  --color-brand-soft: #211f43;
-  --color-brand-line: #383572;
-  --color-brand-ink: #a49df9;
-  --color-brand-ink-hover: #bcb6fb;
-  --color-brand-muted: rgba(95, 86, 234, 0.55);
-  --color-brand-bar: rgba(139, 131, 246, 0.75);
+  /* Brand — the fill goes white and whatever sits on it goes black. */
+  --color-brand: #fafafa;
+  --color-brand-hover: #ffffff;
+  --color-on-brand: #0a0a0a;
+  --color-brand-ink: #fafafa;
+  --color-brand-ink-hover: #ffffff;
+  --color-brand-muted: rgba(250, 250, 250, 0.35);
 
-  /* Semantic accents */
-  --color-positive: #4ecf9e;
-  --color-positive-soft: #0f2a22;
-  --color-caution: #edb95f;
-  --color-caution-soft: #2e2313;
-  --color-danger: #f2867b;
+  /* Danger — the one hue */
+  --color-danger: #ef8a80;
   --color-danger-hover: #d9695e;
-  --color-danger-soft: #331c1a;
-  --color-danger-line: #55302c;
-  --color-info: #85b0f8;
-  --color-info-soft: #16233d;
+  --color-danger-soft: #2a1614;
+  --color-danger-line: #4a2723;
 
-  /* Accent families */
-  --color-accent-neutral: #b6bdc9;
-  --color-accent-neutral-soft: #262a33;
-  --color-accent-neutral-line: #343a47;
-  --color-accent-neutral-dot: #8990a0;
+  /* Badge chrome */
+  --color-accent-neutral: #a6a6a6;
+  --color-accent-neutral-soft: #161616;
+  --color-accent-neutral-line: #262626;
 
-  --color-accent-muted: #8b93a2;
-  --color-accent-muted-soft: #1d2027;
-  --color-accent-muted-line: #2c313b;
-  --color-accent-muted-dot: #6b7383;
+  /* Status ramp — inverted, but palest still means earliest. */
+  --color-step-0: #2a2a2a;
+  --color-step-1: #3a3a3a;
+  --color-step-2: #545454;
+  --color-step-3: #7a7a7a;
+  --color-step-4: #a0a0a0;
+  --color-step-5: #fafafa;
 
-  --color-accent-info: #85b0f8;
-  --color-accent-info-soft: #16233d;
-  --color-accent-info-line: #27395c;
-  --color-accent-info-dot: #5b8fe8;
+  /* Priority ramp */
+  --color-level-1: #3a3a3a;
+  --color-level-2: #5c5c5c;
+  --color-level-3: #8a8a8a;
+  --color-level-4: #fafafa;
 
-  --color-accent-violet: #b49bf7;
-  --color-accent-violet-soft: #241d3f;
-  --color-accent-violet-line: #3a2f63;
-  --color-accent-violet-dot: #9b7cf8;
+  --color-canvas-veil: rgba(10, 10, 10, 0.85);
+  --color-ring-brand: rgba(250, 250, 250, 0.14);
+  --color-ring-danger: rgba(239, 138, 128, 0.18);
 
-  --color-accent-positive: #55d3a1;
-  --color-accent-positive-soft: #0f2a22;
-  --color-accent-positive-line: #1d4536;
-  --color-accent-positive-dot: #22b57f;
+  --color-star: #fafafa;
+  --color-scrim: rgba(0, 0, 0, 0.62);
+  --color-field-invalid: #6b3a35;
 
-  --color-accent-caution: #edb95f;
-  --color-accent-caution-soft: #2e2313;
-  --color-accent-caution-line: #4a3a1c;
-  --color-accent-caution-dot: #d99a2b;
-
-  --color-accent-danger: #f5867b;
-  --color-accent-danger-soft: #331c1a;
-  --color-accent-danger-line: #55302c;
-  --color-accent-danger-dot: #e05548;
-
-  --color-canvas-veil: rgba(14, 15, 19, 0.85);
-  --color-surface-veil: rgba(34, 37, 45, 0.7);
-  --color-ring-brand: rgba(140, 132, 250, 0.22);
-  --color-ring-danger: rgba(242, 134, 123, 0.22);
-
-  --color-star: #f0b93c;
-  --color-scrim: rgba(4, 5, 10, 0.62);
-  --color-field-invalid: #7a4039;
-
-  /* Elevation — shadows read faintly on a dark canvas, so they lean on a
-     deeper black and the borders do more of the separating. */
-  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.40), 0 1px 3px rgba(0, 0, 0, 0.30);
-  --shadow-raised: 0 2px 4px rgba(0, 0, 0, 0.40), 0 8px 20px -6px rgba(0, 0, 0, 0.55);
-  --shadow-pop: 0 8px 28px -8px rgba(0, 0, 0, 0.70), 0 2px 8px rgba(0, 0, 0, 0.45);
-  --shadow-overlay: 0 24px 60px -20px rgba(0, 0, 0, 0.85);
-  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.35);
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.40), 0 1px 2px -1px rgba(0, 0, 0, 0.40);
+  /* Elevation — shadows read faintly on a dark canvas, so the floating
+     surfaces lean on a deeper black and the hairlines do the rest. */
+  --shadow-pop: 0 4px 16px -4px rgba(0, 0, 0, 0.7), 0 1px 3px rgba(0, 0, 0, 0.5);
+  --shadow-overlay: 0 16px 48px -16px rgba(0, 0, 0, 0.85);
 }
 
 @layer base {
@@ -255,7 +210,7 @@
   :focus-visible {
     outline: 2px solid var(--color-brand-ink);
     outline-offset: 2px;
-    border-radius: 6px;
+    border-radius: 4px;
   }
 
   button,

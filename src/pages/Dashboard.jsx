@@ -1,9 +1,8 @@
-import { ArrowRight, Flame, Plus, Sparkles } from 'lucide-react'
+import { Plus } from 'lucide-react'
 import { StatsGrid } from '../components/research/StatsGrid'
 import { Panel } from '../components/ui/Panel'
 import { Button } from '../components/ui/Button'
 import { StatusBadge } from '../components/ui/StatusBadge'
-import { PriorityBadge } from '../components/ui/PriorityBadge'
 import { TagBadge } from '../components/ui/TagBadge'
 import { EmptyState } from '../components/ui/EmptyState'
 import { STATUSES } from '../utils/constants'
@@ -16,56 +15,38 @@ function EntryRow({ entry, onEdit }) {
       <button
         type="button"
         onClick={() => onEdit(entry)}
-        className="group flex w-full items-center gap-3 rounded-lg px-2 py-2.5 text-left transition-colors hover:bg-surface-muted"
+        className="group flex w-full items-center gap-3 rounded-md px-2 py-2 text-left transition-colors hover:bg-surface-muted"
       >
-        <div className="min-w-0 flex-1">
-          <p className="truncate text-[13.5px] font-semibold text-ink transition-colors group-hover:text-brand-ink">
-            {entry.title}
-          </p>
-          <div className="mt-1 flex items-center gap-2.5">
-            <PriorityBadge priority={entry.priority} />
-            <span className="text-[12px] text-ink-faint">{formatRelative(entry.updatedAt)}</span>
-          </div>
-        </div>
-
-        <div className="hidden shrink-0 sm:block">
+        <p className="min-w-0 flex-1 truncate text-[13.5px] text-ink">{entry.title}</p>
+        <span className="hidden shrink-0 text-[12px] text-ink-faint sm:block">
+          {formatRelative(entry.updatedAt)}
+        </span>
+        <span className="shrink-0">
           <StatusBadge status={entry.status} />
-        </div>
+        </span>
       </button>
     </li>
   )
 }
 
-function StatusBreakdown({ entries, total, onSelectStatus }) {
+function StatusBreakdown({ entries, onSelectStatus }) {
   return (
-    <ul className="flex flex-col gap-2.5">
+    <ul className="flex flex-col">
       {STATUSES.map((status) => {
         const count = entries.filter((entry) => entry.status === status.value).length
-        const percent = total ? Math.round((count / total) * 100) : 0
 
         return (
           <li key={status.value}>
             <button
               type="button"
               onClick={() => onSelectStatus(status.value)}
-              className="group w-full text-left"
+              className="group flex w-full items-center justify-between gap-3 rounded-md px-2 py-1.5 text-left transition-colors hover:bg-surface-muted"
             >
-              <div className="flex items-baseline justify-between gap-3">
-                <span className="flex items-center gap-2 text-[12.5px] font-medium text-ink-soft transition-colors group-hover:text-ink">
-                  <span className={cn('h-2 w-2 rounded-full', status.dot)} aria-hidden="true" />
-                  {status.label}
-                </span>
-                <span className="text-[12px] text-ink-faint tabular-nums">
-                  {count} · {percent}%
-                </span>
-              </div>
-
-              <div className="mt-1.5 h-1.5 w-full overflow-hidden rounded-full bg-surface-sunken">
-                <div
-                  className={cn('h-full rounded-full transition-all duration-500', status.dot)}
-                  style={{ width: `${percent}%` }}
-                />
-              </div>
+              <span className="flex min-w-0 items-center gap-2 text-[13px] text-ink-soft transition-colors group-hover:text-ink">
+                <span className={cn('h-1.5 w-1.5 shrink-0 rounded-full', status.dot)} aria-hidden="true" />
+                <span className="truncate">{status.label}</span>
+              </span>
+              <span className="shrink-0 text-[12.5px] text-ink-faint tabular-nums">{count}</span>
             </button>
           </li>
         )
@@ -74,35 +55,16 @@ function StatusBreakdown({ entries, total, onSelectStatus }) {
   )
 }
 
-export function Dashboard({
-  entries,
-  stats,
-  tagUsage,
-  onNavigate,
-  onEdit,
-  onAdd,
-  onSelectTag,
-  onSelectStatus,
-}) {
+export function Dashboard({ entries, stats, tagUsage, onNavigate, onEdit, onAdd, onSelectTag, onSelectStatus }) {
   const recent = [...entries]
     .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt))
-    .slice(0, 5)
-
-  const focus = entries
-    .filter(
-      (entry) =>
-        (entry.priority === 'Critical' || entry.priority === 'High') &&
-        entry.status !== 'Completed' &&
-        entry.status !== 'Archived',
-    )
-    .slice(0, 4)
+    .slice(0, 6)
 
   if (!entries.length) {
     return (
       <EmptyState
-        icon={Sparkles}
-        title="No research added yet"
-        description="Start your library with the first topic you want to dig into — sources, notes and progress all live here."
+        title="No research yet"
+        description="Add the first topic you want to dig into."
         action={
           <Button variant="primary" onClick={onAdd}>
             <Plus className="h-4 w-4" aria-hidden="true" />
@@ -114,83 +76,47 @@ export function Dashboard({
   }
 
   return (
-    <div className="flex flex-col gap-5 sm:gap-6">
+    <div className="flex flex-col gap-5">
       <StatsGrid stats={stats} />
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
-        <div className="flex flex-col gap-4 lg:col-span-2">
-          <Panel
-            title="Recently updated"
-            description="Where you left off"
-            bodyClassName="p-2"
-            action={
-              <Button variant="ghost" size="sm" onClick={() => onNavigate('all')}>
-                View all
-                <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
-              </Button>
-            }
-          >
-            <ul className="flex flex-col">
-              {recent.map((entry) => (
-                <EntryRow key={entry.id} entry={entry} onEdit={onEdit} />
-              ))}
-            </ul>
-          </Panel>
-
-          <Panel
-            title="Needs attention"
-            description="High and critical topics still open"
-            bodyClassName="p-2"
-            action={
-              <Button variant="ghost" size="sm" onClick={() => onNavigate('high-priority')}>
-                Open
-                <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
-              </Button>
-            }
-          >
-            {focus.length ? (
-              <ul className="flex flex-col">
-                {focus.map((entry) => (
-                  <EntryRow key={entry.id} entry={entry} onEdit={onEdit} />
-                ))}
-              </ul>
-            ) : (
-              <div className="flex items-center gap-2.5 px-2 py-5 text-[13px] text-ink-faint">
-                <Flame className="h-4 w-4" aria-hidden="true" />
-                Nothing urgent is open — your high-priority queue is clear.
-              </div>
-            )}
-          </Panel>
-        </div>
+        <Panel
+          className="lg:col-span-2"
+          title="Recently updated"
+          bodyClassName="p-2"
+          action={
+            <Button variant="ghost" size="sm" onClick={() => onNavigate('all')}>
+              View all
+            </Button>
+          }
+        >
+          <ul className="flex flex-col">
+            {recent.map((entry) => (
+              <EntryRow key={entry.id} entry={entry} onEdit={onEdit} />
+            ))}
+          </ul>
+        </Panel>
 
         <div className="flex flex-col gap-4">
-          <Panel title="By status" description={`${stats.total} entries in total`}>
-            <StatusBreakdown
-              entries={entries}
-              total={stats.total}
-              onSelectStatus={onSelectStatus}
-            />
+          <Panel title="Status" bodyClassName="p-2">
+            <StatusBreakdown entries={entries} onSelectStatus={onSelectStatus} />
           </Panel>
 
           <Panel
-            title="Top tags"
-            description="Themes across your library"
+            title="Tags"
             action={
               <Button variant="ghost" size="sm" onClick={() => onNavigate('tags')}>
                 All tags
-                <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
               </Button>
             }
           >
             <ul className="flex flex-wrap gap-1.5">
-              {tagUsage.slice(0, 10).map(({ tag, count }) => (
+              {tagUsage.slice(0, 8).map(({ tag }) => (
                 <li key={tag} className="min-w-0">
-                  <TagBadge tag={`${tag} · ${count}`} onClick={() => onSelectTag(tag)} />
+                  <TagBadge tag={tag} onClick={() => onSelectTag(tag)} />
                 </li>
               ))}
-              {!tagUsage.length && (
-                <li className="text-[13px] text-ink-faint">No tags in use yet.</li>
-              )}
+              {!tagUsage.length && <li className="text-[13px] text-ink-faint">No tags yet.</li>}
             </ul>
           </Panel>
         </div>
